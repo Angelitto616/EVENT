@@ -1,0 +1,26 @@
+<app-header [showMenu]="true" title="Lista de Asistencias"></app-header>
+
+<ion-content>
+  <!-- Spinner de carga -->
+  <div *ngIf="loading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Cargando asistencias...</p>
+  </div>
+
+  <!-- Lista de asistencias -->
+  <ion-list *ngIf="!loading && attendances.length > 0">
+    <ion-item *ngFor="let attendance of attendances">
+      <ion-label>
+        <h2>Charla: {{ attendance.charla }}</h2>
+        <p>Email: {{ attendance.email }}</p>
+        <p>Fecha: {{ attendance.fecha }}</p>
+        <p>RUT: {{ attendance.rut }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje si no hay asistencias -->
+  <div *ngIf="!loading && attendances.length === 0" class="empty-container">
+    <p>No hay asistencias registradas.</p>
+  </div>
+</ion-content>

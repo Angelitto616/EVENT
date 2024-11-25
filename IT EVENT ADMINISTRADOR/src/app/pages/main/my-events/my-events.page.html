@@ -1,0 +1,41 @@
+<app-header [showMenu]="true" title="Mis Eventos"></app-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item-sliding class="product-item" *ngFor="let p of registeredEvents">
+      <ion-item>
+        
+        <!-- Tarjeta para mostrar el producto registrado -->
+        <ion-card>
+          <img [src]="p.Image" alt="{{p.name}}" style="padding-left: 20px;" />
+  
+          <ion-card-header>
+            <ion-card-title>{{ p.name }}</ion-card-title>
+            <ion-card-subtitle>{{ p.descripcion }}</ion-card-subtitle>
+          </ion-card-header>
+  
+          <ion-card-content>
+            <ion-list>
+              <ion-icon slot="start" name="calendar-clear-outline" color="dark"></ion-icon>
+              <ion-text>&nbsp;{{ p.fecha }}</ion-text>
+            </ion-list>
+  
+            <ion-list>
+              <ion-icon slot="start" name="time-outline" color="dark"></ion-icon>
+              <ion-text>&nbsp;{{ p.hora }}</ion-text>
+            </ion-list>
+  
+            <ion-list>
+              <ion-icon slot="start" name="location-outline" color="dark"></ion-icon>
+              <ion-text>&nbsp;{{ p.dirreccion }}</ion-text>
+            </ion-list>
+  
+          </ion-card-content>
+        </ion-card>
+  
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

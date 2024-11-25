@@ -1,0 +1,92 @@
+<app-header [showMenu]="true" title="Inicio"></app-header>
+
+<ion-content>
+
+  <!-- Contenedor del carrusel -->
+  <swiper-container (slideChange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
+
+    <swiper-slide>
+      <img src="assets/swiper/deporte.jpg" alt="Deporte" style="width: 100%; height: auto;" />
+    </swiper-slide>
+
+    <swiper-slide>
+      <img src="assets/swiper/reunion.jpg" alt="Reunion" style="width: 100%; height: auto;" />
+    </swiper-slide>
+
+    <swiper-slide>
+      <img src="assets/swiper/ti.jpg" alt="Tecnología" style="width: 100%; height: auto;" />
+    </swiper-slide>
+
+  </swiper-container>
+
+  <!-- Lista de productos -->
+  <ion-list>
+    <ion-item-sliding class="product-item" *ngFor="let p of products">
+      <ion-item>
+
+        <!-- Tarjeta para mostrar el producto -->
+        <ion-card>
+          <img [src]="p.Image" alt="{{p.name}}" style="padding-left: 20px;" />
+
+          <ion-card-header>
+            <ion-card-title>{{ p.name }}</ion-card-title>
+            <ion-card-subtitle>{{ p.descripcion }}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-list>
+              <ion-icon slot="start" name="calendar-clear-outline" color="dark"></ion-icon>
+              <ion-text>&nbsp;{{ p.fecha }}</ion-text>
+            </ion-list>
+
+            <ion-list>
+              <ion-icon slot="start" name="time-outline" color="dark"></ion-icon>
+              <ion-text>&nbsp;{{ p.hora }}</ion-text>
+            </ion-list>
+
+            <ion-list>
+              <ion-icon slot="start" name="location-outline" color="dark"></ion-icon>
+              <ion-text>&nbsp;{{ p.dirreccion }}</ion-text>
+            </ion-list>
+
+            <ion-button expand="block" fill="solid" size="default" color="primary" (click)="registerAttendance(p.id)"
+              style="padding-left: 10px; padding-right: 10px;">
+              Registrase en el evento
+            </ion-button>
+
+            <ion-button *ngIf="isAdmin" expand="block" fill="solid" size="default" color="secondary"
+              (click)="startScan()" style="margin-top: 8px; padding-left: 10px; padding-right: 10px;">
+              Registrar Asistencia
+            </ion-button> 
+
+
+
+
+
+
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+
+      <!-- Opciones de administración -->
+      <ion-item-options *ngIf="isAdmin">
+        <ion-item-option (click)="addUpdateProduct(p)">
+          <ion-icon class="option-btn" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click)="confirmDeleteProduct(p)" color="danger">
+          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- Botón para añadir un nuevo evento, solo para admin -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isAdmin">
+    <ion-fab-button (click)="addUpdateProduct()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+</ion-content>

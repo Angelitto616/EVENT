@@ -1,0 +1,88 @@
+<app-header [isModal]="true" [title]=" product ? 'Actualizar evento' : 'Agregar un nuevo evento'"></app-header>
+<ion-content>
+
+    <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+        <!--- Si existe una imagen -->    
+        <ion-avatar *ngIf="form.value.Image">
+            <img [src]="form.value.Image" />
+        </ion-avatar>
+
+        <!--- Si  NO existe una imagen -->    
+
+        <ion-icon class="image-icon" *ngIf="!form.value.Image"  name="image-outline"></ion-icon>
+
+
+        <br>
+        <!--- Tomar o seleccionar una imagen -->
+
+        <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+            Tomar/Selecionar
+        </ion-button>
+
+
+        <!--- Name -->
+        <app-custom-input 
+        [control]="form.controls.name" 
+        type="text"
+        label="Nombre del evento"></app-custom-input>
+
+        
+        <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched ">
+            <div *ngIf="form.controls.name.errors?.['required']">Este campo es requerido</div>
+            <div *ngIf="form.controls.name.errors?.['minlength']">El nombre debe tener minimo 3 caracteres</div>
+        </div>
+
+        <!---  descripcion -->
+        <app-custom-input 
+        [control]="form.controls.descripcion" 
+        type="text"
+        label="Descripcion del evento"></app-custom-input>
+
+
+        <div class="validators" *ngIf="form.controls.descripcion.errors && form.controls.descripcion.touched ">
+            <div *ngIf="form.controls.descripcion.errors?.['required']">Este campo es requerido</div>
+            <div *ngIf="form.controls.descripcion.errors?.['minlength']">La descripcion debe tener minimo 3 caracteres</div>
+        </div>
+
+        <!-- Fecha -->
+        <app-custom-input 
+        [control]="form.controls.fecha" 
+        type="date"
+        label="Fecha del evento"></app-custom-input>
+
+        <div class="validators" *ngIf="form.controls.fecha.errors && form.controls.fecha.touched">
+            <div *ngIf="form.controls.fecha.errors?.['required']">Este campo es requerido</div>
+            <div *ngIf="form.controls.fecha.errors?.['pattern']">El formato de la fecha es incorrecto. Use yyyy-mm-dd</div>
+        </div>
+
+        <!-- Hora -->
+        <app-custom-input 
+        [control]="form.controls.hora" 
+        type="time"
+        label="Hora del evento"></app-custom-input>
+
+        <div class="validators" *ngIf="form.controls.hora.errors && form.controls.hora.touched">
+            <div *ngIf="form.controls.hora.errors?.['required']">Este campo es requerido</div>
+            <div *ngIf="form.controls.hora.errors?.['pattern']">El formato de la hora es incorrecto. Use HH:mm</div>
+        </div>
+
+        <!-- Dirección -->
+        <app-custom-input 
+        [control]="form.controls.dirreccion" 
+        type="text"
+        label="Dirección del evento"></app-custom-input>
+
+        <div class="validators" *ngIf="form.controls.dirreccion.errors && form.controls.dirreccion.touched">
+            <div *ngIf="form.controls.dirreccion.errors?.['required']">Este campo es requerido</div>
+            <div *ngIf="form.controls.dirreccion.errors?.['minlength']">La dirección debe tener mínimo 3 caracteres</div>
+        </div>
+
+
+        <ion-button  mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid">
+            {{product ? 'Actualizar evento' : 'Agregar un nuevo evento'}}
+            <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+
+    </form>
+</ion-content>
